@@ -1,37 +1,79 @@
+/* Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
+
 body {
-    font-family: Arial;
+    font-family: 'Poppins', sans-serif;
     margin: 0;
-    background: #f4f6f8;
+    background: linear-gradient(to right, #667eea, #764ba2);
+    color: #333;
 }
 
 /* Header */
 header {
-    background: #2c3e50;
-    color: white;
     text-align: center;
-    padding: 40px;
+    padding: 60px 20px;
+    color: white;
+}
+
+header h1 {
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+
+header p {
+    font-size: 18px;
+    opacity: 0.9;
 }
 
 /* Sections */
 section {
-    padding: 20px;
+    padding: 30px;
 }
 
-/* Cards */
+/* Glass Card Effect */
 .card {
-    background: white;
-    padding: 15px;
-    margin: 15px 0;
-    border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 15px;
+    color: white;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hover Animation 🔥 */
+.card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
 }
 
 /* Links */
 a {
-    color: #3498db;
+    color: #ffd369;
+    font-weight: bold;
     text-decoration: none;
 }
 
 a:hover {
     text-decoration: underline;
+}
+
+/* Skills List */
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+ul li {
+    background: rgba(255,255,255,0.2);
+    margin: 8px 0;
+    padding: 10px;
+    border-radius: 10px;
+    color: white;
+    display: inline-block;
+}
+
+/* Section Titles */
+h2 {
+    color: white;
 }
