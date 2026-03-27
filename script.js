@@ -1,4 +1,3 @@
-// Typing Effect
 let text = "AI/ML Engineer | Time Series Specialist 🚀";
 let i = 0;
 
@@ -9,12 +8,10 @@ function typing() {
         setTimeout(typing, 50);
     }
 }
-typing();
+window.onload = typing;
 
-// Filter Projects
 function filterProjects(category) {
     let cards = document.getElementsByClassName("card");
-
     for (let card of cards) {
         if (category === "all") {
             card.style.display = "block";
