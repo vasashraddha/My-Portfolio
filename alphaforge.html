@@ -9,20 +9,19 @@
 </head>
 <body>
 
-  <div class="dashboard">
-    <div style="padding: 10px 0;">
-        <a href="index.html" style="color: #8b90a4; text-decoration: none; font-size: 13px;">← Back to Portfolio</a>
-    </div>
-
+ div class="dashboard">
+ 
+    <!-- Header -->
     <div class="header">
       <div class="header-left">
         <span class="logo-dot"></span>
         <span class="logo-text">AlphaForge</span>
         <span class="badge">Multi-Asset Portfolio</span>
       </div>
-      <div class="header-right">Analysis: yfinance & PyPortfolioOpt</div>
+      <div class="header-right">2018 – 2023 &nbsp;|&nbsp; 1,508 trading days</div>
     </div>
-
+ 
+    <!-- Metric Cards -->
     <div class="metrics-grid">
       <div class="metric-card accent">
         <div class="metric-label">Total Return</div>
@@ -44,33 +43,103 @@
         <div class="metric-value amber">30.8%</div>
         <div class="metric-sub">Annual</div>
       </div>
+      <div class="metric-card">
+        <div class="metric-label">Max Drawdown</div>
+        <div class="metric-value red">-40.7%</div>
+        <div class="metric-sub">Worst peak-to-trough</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">VaR (95%)</div>
+        <div class="metric-value">-3.00%</div>
+        <div class="metric-sub">Daily downside</div>
+      </div>
     </div>
-
+ 
+    <!-- Allocation + Risk Profile -->
     <div class="row-2">
+ 
+      <!-- Allocation -->
       <div class="card">
         <div class="card-title">Optimal Allocation</div>
-        <div class="card-subtitle">Using Covariance Shrinkage</div>
+        <div class="card-subtitle">Maximized Sharpe Ratio</div>
+ 
         <div class="alloc-list" id="allocList"></div>
+ 
         <div class="donut-wrap">
           <canvas id="donutChart"></canvas>
+          <div class="donut-center">
+            <div class="donut-label">3 assets</div>
+            <div class="donut-sub">selected</div>
+          </div>
         </div>
       </div>
-
+ 
+      <!-- Risk Profile -->
       <div class="card">
-        <div class="card-title">Correlation Matrix</div>
-        <div class="card-subtitle">Daily return correlations</div>
-        <div id="heatmap" class="heatmap-grid"></div>
+        <div class="card-title">Risk Profile</div>
+        <div class="card-subtitle">Portfolio characteristics</div>
+ 
+        <div class="risk-table">
+          <div class="risk-row">
+            <span class="risk-key">Annual Return</span>
+            <span class="risk-val green">33.28%</span>
+          </div>
+          <div class="risk-row">
+            <span class="risk-key">Annual Volatility</span>
+            <span class="risk-val amber">30.75%</span>
+          </div>
+          <div class="risk-row">
+            <span class="risk-key">Sharpe Ratio</span>
+            <span class="risk-val">1.082</span>
+          </div>
+          <div class="risk-row">
+            <span class="risk-key">Sortino Ratio</span>
+            <span class="risk-val">1.170</span>
+          </div>
+          <div class="risk-row">
+            <span class="risk-key">Max Drawdown</span>
+            <span class="risk-val red">-40.68%</span>
+          </div>
+          <div class="risk-row">
+            <span class="risk-key">VaR 95%</span>
+            <span class="risk-val red">-3.00%/day</span>
+          </div>
+          <div class="risk-row">
+            <span class="risk-key">CVaR 95%</span>
+            <span class="risk-val red">-4.41%/day</span>
+          </div>
+          <div class="risk-row">
+            <span class="risk-key">Risk Level</span>
+            <span class="tag tag-amber">Aggressive</span>
+          </div>
+          <div class="risk-row">
+            <span class="risk-key">Diversification</span>
+            <span class="tag tag-green">High</span>
+          </div>
+        </div>
       </div>
     </div>
-
+ 
+    <!-- Returns Comparison -->
     <div class="card">
-      <div class="card-title">Returns Comparison</div>
+      <div class="card-title">Total Returns Comparison</div>
+      <div class="card-subtitle">Portfolio vs individual stocks — 2018 to 2023</div>
       <div class="chart-wrap" style="height: 280px;">
         <canvas id="returnsChart"></canvas>
       </div>
     </div>
+ 
+    <!-- Correlation Heatmap -->
+    <div class="card">
+      <div class="card-title">Correlation Matrix</div>
+      <div class="card-subtitle">Daily return correlations between assets</div>
+      <div id="heatmap" class="heatmap-grid"></div>
+    </div>
+ 
   </div>
-
-  <script src="alphaforge-script.js"></script>
+ 
+  <script src="script.js"></script>
 </body>
 </html>
+ 
+
