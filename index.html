@@ -1,84 +1,81 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shraddha Vasa | DS/AI/ML Portfolio</title>
-
-    <!-- Connect CSS -->
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
-
 <body>
 
-<!-- HEADER -->
 <header>
     <h1>Shraddha Vasa</h1>
-    <p id="typing"></p> <!-- typing animation will come here -->
+    <p id="typing"></p> 
 </header>
 
-<!-- FILTER BUTTONS -->
 <div class="filters">
     <button onclick="filterProjects('all')">All</button>
-	<button onclick="filterProjects('ml')">AI</button>
-    <button onclick="filterProjects('ml')">ML</button>
+    <button onclick="filterProjects('ml')">AI/ML</button>
     <button onclick="filterProjects('timeseries')">Time Series</button>
 </div>
 
-<!-- PROJECT SECTION -->
 <section>
-    <h2>✨ My Projects</h2>
+    <h2 style="text-align: center; margin-top: 40px;">✨ My Projects</h2>
 
     <div class="projects-container">
-
-        <!-- PROJECT 1 -->
         <div class="card ml timeseries">
-            <img src="images/project1.png">
+            <img src="images/project1.png" alt="Sales Forecasting">
             <h3>📊 Sales Forecasting</h3>
             <p>Predict future sales using LSTM model.</p>
             <p class="metric">RMSE: 12.5</p>
-            <a href="#">🔗 View Project</a>
+            <a href="#" class="project-link">🔗 View Code</a>
         </div>
 
-        <!-- PROJECT 2 -->
         <div class="card ml timeseries">
-            <img src="images/project2.png">
+            <img src="images/project2.png" alt="Stock Prediction">
             <h3>📈 Stock Prediction</h3>
             <p>Forecast stock prices using ARIMA.</p>
             <p class="metric">Accuracy: 89%</p>
-            <a href="#">🔗 View Project</a>
+            <a href="#" class="project-link">🔗 View Code</a>
         </div>
 
-        <!-- PROJECT 3 -->
         <div class="card ml">
-            <img src="images/project3.png">
+            <img src="images/project3.png" alt="Fraud Detection">
             <h3>💳 Fraud Detection</h3>
             <p>Detect fraud using classification model.</p>
             <p class="metric">F1 Score: 0.92</p>
-            <a href="#">🔗 View Project</a>
+            <a href="#" class="project-link">🔗 View Code</a>
         </div>
 
+        <div class="card ml timeseries">
+            <img src="https://via.placeholder.com/400x250/1a1e2b/ffffff?text=AlphaForge+Dashboard" alt="AlphaForge">
+            <h3>🚀 AlphaForge: Portfolio Optimizer</h3>
+            <p>Multi-asset optimizer using <strong>PyPortfolioOpt</strong> and <strong>yfinance</strong>.</p>
+            <p class="metric">Sharpe Ratio: 1.08</p>
+            <a href="alphaforge.html" class="project-link">📊 Open Live Dashboard</a>
+        </div>
     </div>
 </section>
 
-<!-- SKILLS -->
-<section>
+<section style="padding: 40px; text-align: center;">
     <h2>🧠 Skills</h2>
     <ul>
         <li>Python</li>
         <li>Machine Learning</li>
         <li>Time Series</li>
         <li>Pandas</li>
+        <li>yfinance</li>
+        <li>PyPortfolioOpt</li>
     </ul>
 </section>
 
-<!-- LINKS -->
-<section>
+<footer style="padding: 40px; text-align: center; background: rgba(0,0,0,0.2);">
     <h2>🌐 Connect</h2>
-     <a href="https://github.com/vasashraddha">GitHub</a> |
-	<a href="www.linkedin.com/in/vasa-shraddha">LinkedIn</a>
-</section>
+    <a href="https://github.com/vasashraddha" style="color: white;">GitHub</a> |
+    <a href="https://www.linkedin.com/in/vasa-shraddha" style="color: white;">LinkedIn</a>
+</footer>
 
-<!-- Connect JS -->
 <script src="script.js"></script>
 
 </body>
