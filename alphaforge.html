@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AlphaForge Dashboard | Shraddha Vasa</title>
+  <link rel="stylesheet" href="alphaforge-style.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+</head>
+<body>
+
+  <div class="dashboard">
+    <div style="padding: 10px 0;">
+        <a href="index.html" style="color: #8b90a4; text-decoration: none; font-size: 13px;">← Back to Portfolio</a>
+    </div>
+
+    <div class="header">
+      <div class="header-left">
+        <span class="logo-dot"></span>
+        <span class="logo-text">AlphaForge</span>
+        <span class="badge">Multi-Asset Portfolio</span>
+      </div>
+      <div class="header-right">Analysis: yfinance & PyPortfolioOpt</div>
+    </div>
+
+    <div class="metrics-grid">
+      <div class="metric-card accent">
+        <div class="metric-label">Total Return</div>
+        <div class="metric-value">+549.9%</div>
+        <div class="metric-sub">6-year backtest</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Annual Return</div>
+        <div class="metric-value green">33.3%</div>
+        <div class="metric-sub">Expected</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Sharpe Ratio</div>
+        <div class="metric-value">1.08</div>
+        <div class="metric-sub">Risk-adjusted</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Volatility</div>
+        <div class="metric-value amber">30.8%</div>
+        <div class="metric-sub">Annual</div>
+      </div>
+    </div>
+
+    <div class="row-2">
+      <div class="card">
+        <div class="card-title">Optimal Allocation</div>
+        <div class="card-subtitle">Using Covariance Shrinkage</div>
+        <div class="alloc-list" id="allocList"></div>
+        <div class="donut-wrap">
+          <canvas id="donutChart"></canvas>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Correlation Matrix</div>
+        <div class="card-subtitle">Daily return correlations</div>
+        <div id="heatmap" class="heatmap-grid"></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Returns Comparison</div>
+      <div class="chart-wrap" style="height: 280px;">
+        <canvas id="returnsChart"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <script src="alphaforge-script.js"></script>
+</body>
+</html>
