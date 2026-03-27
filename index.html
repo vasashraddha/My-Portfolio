@@ -1,40 +1,65 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <title>Shraddha Vasa  | ML Portfolio</title>
+    <title>Shraddha Vasa | ML Portfolio</title>
+
+    <!-- Connect CSS -->
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
+<!-- HEADER -->
 <header>
-    <h1>🚀 Shraddha Vasa </h1>
-    <p>AI/ML Engineer | Time Series Forecasting | Data Enthusiast</p>
+    <h1>🚀 Shraddha Vasa</h1>
+    <p id="typing"></p> <!-- typing animation will come here -->
 </header>
 
+<!-- FILTER BUTTONS -->
+<div class="filters">
+    <button onclick="filterProjects('all')">All</button>
+    <button onclick="filterProjects('ml')">ML</button>
+    <button onclick="filterProjects('timeseries')">Time Series</button>
+</div>
+
+<!-- PROJECT SECTION -->
 <section>
     <h2>✨ My Projects</h2>
 
-    <div class="card">
-        <h3>📊 Sales Forecasting</h3>
-        <p>Built ML model to predict future sales trends using time-series data.</p>
-        <a href="#">🔗 View Project</a>
-    </div>
+    <div class="projects-container">
 
-    <div class="card">
-        <h3>📈 Stock Prediction</h3>
-        <p>Forecast stock prices using ARIMA & LSTM models.</p>
-        <a href="#">🔗 View Project</a>
-    </div>
+        <!-- PROJECT 1 -->
+        <div class="card ml timeseries">
+            <img src="images/project1.png">
+            <h3>📊 Sales Forecasting</h3>
+            <p>Predict future sales using LSTM model.</p>
+            <p class="metric">RMSE: 12.5</p>
+            <a href="#">🔗 View Project</a>
+        </div>
 
-    <div class="card">
-        <h3>📉 Data Analysis Dashboard</h3>
-        <p>Interactive dashboard showing trends and predictions.</p>
-        <a href="#">🔗 View Project</a>
-    </div>
+        <!-- PROJECT 2 -->
+        <div class="card ml timeseries">
+            <img src="images/project2.png">
+            <h3>📈 Stock Prediction</h3>
+            <p>Forecast stock prices using ARIMA.</p>
+            <p class="metric">Accuracy: 89%</p>
+            <a href="#">🔗 View Project</a>
+        </div>
 
+        <!-- PROJECT 3 -->
+        <div class="card ml">
+            <img src="images/project3.png">
+            <h3>💳 Fraud Detection</h3>
+            <p>Detect fraud using classification model.</p>
+            <p class="metric">F1 Score: 0.92</p>
+            <a href="#">🔗 View Project</a>
+        </div>
+
+    </div>
 </section>
 
+<!-- SKILLS -->
 <section>
     <h2>🧠 Skills</h2>
     <ul>
@@ -42,20 +67,18 @@
         <li>Machine Learning</li>
         <li>Time Series</li>
         <li>Pandas</li>
-        <li>Scikit-learn</li>
-        <li>Deep Learning</li>
     </ul>
 </section>
 
+<!-- LINKS -->
 <section>
-    <h2>🌐 Connect with Me</h2>
-    <p>
-            <a href="https://github.com/vasashraddha">GitHub</a> |
+    <h2>🌐 Connect</h2>
+     <a href="https://github.com/vasashraddha">GitHub</a> |
 	<a href="www.linkedin.com/in/vasa-shraddha">LinkedIn</a>
-    </p>
 </section>
+
+<!-- Connect JS -->
+<script src="script.js"></script>
 
 </body>
 </html>
-
-
