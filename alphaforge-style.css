@@ -1,21 +1,33 @@
 :root {
-  --bg: #0d0f14; --surface: #141720; --card: #1a1e2b; --text: #f0f2f7; --blue: #4b8ef1;
+  --bg: #0d0f14; --panel: #141720; --card: #1a1e2b; --blue: #4b8ef1; --text: #f0f2f7; --text-dim: #8b90a4;
 }
 
-body { background: var(--bg); color: var(--text); font-family: sans-serif; padding: 2rem; }
-.dashboard { max-width: 1000px; margin: 0 auto; display: flex; flex-direction: column; gap: 1.5rem; }
+body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; padding: 20px; }
+.dashboard { max-width: 1100px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; }
+.nav-header a { color: var(--text-dim); text-decoration: none; font-size: 14px; }
 
-.header { display: flex; justify-content: space-between; padding: 1.5rem; background: var(--surface); border-radius: 16px; border: 1px solid rgba(255,255,255,0.05); }
-.logo-text { font-size: 1.5rem; font-weight: bold; color: var(--blue); }
+.brand-strip { display: flex; justify-content: space-between; align-items: center; padding: 20px; background: var(--panel); border-radius: 12px; }
+.logo { font-size: 22px; font-weight: 800; color: var(--blue); letter-spacing: -0.5px; }
+.status-tag { background: rgba(62, 207, 142, 0.1); color: #3ecf8e; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; }
 
-.metrics-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
-.metric-card { background: var(--card); padding: 1.5rem; border-radius: 12px; text-align: center; }
-.value { font-size: 1.8rem; font-weight: bold; margin-top: 5px; }
+.top-metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; }
+.m-card { background: var(--card); padding: 20px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.03); }
+.m-label { display: block; color: var(--text-dim); font-size: 13px; margin-bottom: 8px; }
+.m-value { font-size: 26px; font-weight: 700; }
 
-.main-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
-.card { background: var(--card); padding: 1.5rem; border-radius: 16px; }
+.grid-layout { display: grid; grid-template-columns: 1fr 1.2fr; gap: 20px; }
+.card { background: var(--card); padding: 24px; border-radius: 16px; position: relative; }
+.card h3 { font-size: 16px; margin-bottom: 20px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; }
 
-.chart-container { position: relative; height: 220px; width: 100%; margin-top: 1rem; }
+/* ALLOCATION BAR STYLING — The "Clear" Fix */
+.allocation-list { margin-bottom: 25px; }
+.alloc-row { display: flex; align-items: center; margin-bottom: 14px; }
+.alloc-ticker { width: 60px; font-weight: 600; font-size: 14px; }
+.alloc-progress-bg { flex: 1; height: 8px; background: rgba(255,255,255,0.05); border-radius: 4px; margin: 0 15px; overflow: hidden; }
+.alloc-progress-fill { height: 100%; border-radius: 4px; transition: width 1.2s cubic-bezier(0.17, 0.67, 0.83, 0.67); }
+.alloc-pct { width: 50px; text-align: right; font-family: monospace; font-size: 14px; color: var(--text-dim); }
 
-.heatmap-grid { display: grid; grid-template-columns: 50px repeat(5, 1fr); gap: 4px; margin-top: 1rem; }
-.hm-cell { height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 4px; font-size: 11px; font-family: monospace; }
+.chart-box { position: relative; width: 100%; height: 220px; }
+
+.heatmap-container { display: grid; grid-template-columns: 50px repeat(5, 1fr); gap: 5px; }
+.hm-cell { height: 42px; display: flex; align-items: center; justify-content: center; border-radius: 4px; font-size: 11px; font-family: monospace; }
