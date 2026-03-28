@@ -10,57 +10,46 @@ const RETURNS = {
   colors: ['#3b82f6', '#f59e0b', '#10b981', '#10b981', '#10b981', '#10b981']
 };
 
-function renderAllocation() {
-  const container = document.getElementById('allocList');
-  if (!container) return;
-
+function initAllocation() {
+  const list = document.getElementById('allocList');
   ALLOCATION.forEach(item => {
     const row = document.createElement('div');
     row.className = 'alloc-row';
     row.innerHTML = `
-      <div class="alloc-ticker">${item.ticker}</div>
-      <div class="alloc-bar-wrapper">
-        <div class="alloc-bar-fill" style="width: 0%; background: ${item.color};" data-val="${item.weight}%"></div>
-      </div>
-      <div class="alloc-pct">${item.weight}%</div>
+      <span class="alloc-ticker">${item.ticker}</span>
+      <div class="alloc-bar-bg"><div class="alloc-bar" style="width: 0%; background: ${item.color};" data-target="${item.weight}"></div></div>
+      <span class="alloc-pct">${item.weight}%</span>
     `;
-    container.appendChild(row);
+    list.appendChild(row);
   });
 
   setTimeout(() => {
-    document.querySelectorAll('.alloc-bar-fill').forEach(bar => {
-      bar.style.width = bar.getAttribute('data-val');
+    document.querySelectorAll('.alloc-bar').forEach(bar => {
+      bar.style.width = bar.dataset.target + '%';
     });
-  }, 200);
+  }, 300);
 }
 
 function initCharts() {
-  // Donut Chart
+  // Donut
   new Chart(document.getElementById('donutChart'), {
     type: 'doughnut',
     data: {
       labels: ALLOCATION.map(a => a.ticker),
-      datasets: [{
-        data: ALLOCATION.map(a => a.weight),
-        backgroundColor: ALLOCATION.map(a => a.color),
-        borderWidth: 0
-      }]
+      datasets: [{ data: ALLOCATION.map(a => a.weight), backgroundColor: ALLOCATION.map(a => a.color), borderWidth: 0 }]
     },
-    options: { maintainAspectRatio: false, cutout: '75%', plugins: { legend: { display: false } } }
+    options: { responsive: true, maintainAspectRatio: false, cutout: '70%', plugins: { legend: { display: false } } }
   });
 
-  // Bar Chart
+  // Returns Bar
   new Chart(document.getElementById('returnsChart'), {
     type: 'bar',
     data: {
       labels: RETURNS.labels,
-      datasets: [{
-        data: RETURNS.values,
-        backgroundColor: RETURNS.colors,
-        borderRadius: 5
-      }]
+      datasets: [{ data: RETURNS.values, backgroundColor: RETURNS.colors, borderRadius: 8 }]
     },
     options: {
+      responsive: true,
       maintainAspectRatio: false,
       plugins: { legend: { display: false } },
       scales: {
@@ -71,31 +60,30 @@ function initCharts() {
   });
 }
 
-function renderHeatmap() {
-  const grid = document.getElementById('heatmap');
-  const tks = ['AAPL', 'AMZN', 'GOOGL', 'MSFT', 'TSLA'];
-  grid.appendChild(document.createElement('div'));
-  tks.forEach(t => {
-    const d = document.createElement('div');
-    d.style.textAlign = 'center'; d.style.fontSize = '10px'; d.textContent = t;
-    grid.appendChild(d);
-  });
-
-  tks.forEach((row, i) => {
-    const rl = document.createElement('div'); rl.style.fontSize = '10px'; rl.textContent = row; grid.appendChild(rl);
-    tks.forEach((col, j) => {
-      const cell = document.createElement('div');
-      cell.className = 'hm-cell';
-      const v = i === j ? 1.00 : 0.4 + (Math.random() * 0.4);
-      cell.style.background = `rgba(59, 130, 246, ${v})`;
-      cell.textContent = v.toFixed(2);
-      grid.appendChild(cell);
+function initHeatmap() {
+    const grid = document.getElementById('heatmap');
+    const tickers = ['AAPL', 'AMZN', 'GOOGL', 'MSFT', 'TSLA'];
+    grid.appendChild(document.createElement('div')); // spacer
+    tickers.forEach(t => {
+        const h = document.createElement('div');
+        h.style.textAlign = 'center'; h.style.fontSize = '11px'; h.textContent = t;
+        grid.appendChild(h);
     });
-  });
+    tickers.forEach((row, i) => {
+        const l = document.createElement('div'); l.style.fontSize = '11px'; l.textContent = row; grid.appendChild(l);
+        tickers.forEach((col, j) => {
+            const cell = document.createElement('div');
+            cell.className = 'hm-cell';
+            const val = i === j ? 1 : 0.4 + (Math.random() * 0.4);
+            cell.style.background = `rgba(59, 130, 246, ${val})`;
+            cell.textContent = val.toFixed(2);
+            grid.appendChild(cell);
+        });
+    });
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  renderAllocation();
+  initAllocation();
   initCharts();
-  renderHeatmap();
+  initHeatmap();
 });
