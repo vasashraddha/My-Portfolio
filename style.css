@@ -1,27 +1,15 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
     font-family: 'Poppins', sans-serif;
     background: linear-gradient(135deg, #1d2671, #c33764);
     color: white;
+    overflow-x: hidden;
 }
 
-/* Header */
-header {
-    text-align: center;
-    padding: 80px 20px;
-}
+header { text-align: center; padding: 40px 20px 10px 20px; }
 
-/* Bio Section */
-.bio-visual-container {
-    padding: 60px 20px;
-    max-width: 900px;
-    margin: auto;
-}
+.bio-visual-container { padding: 20px; max-width: 900px; margin: auto; }
 
 .bio-glass-card {
     position: relative;
@@ -30,69 +18,66 @@ header {
     padding: 40px;
     border-radius: 20px;
     overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.1);
 }
 
-.visual-bg {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-}
+.visual-bg { position: absolute; width: 100%; height: 100%; z-index: -1; top: 0; left: 0; }
 
 .blob {
-    position: absolute;
-    width: 250px;
-    height: 250px;
-    background: pink;
-    filter: blur(80px);
-    border-radius: 50%;
+    position: absolute; width: 250px; height: 250px;
+    background: rgba(255, 182, 193, 0.3);
+    filter: blur(80px); border-radius: 50%;
     animation: move 10s infinite alternate;
 }
 
 @keyframes move {
-    from { transform: translate(-20%, -20%); }
-    to { transform: translate(20%, 20%); }
+    from { transform: translate(-15%, -15%); }
+    to { transform: translate(15%, 15%); }
 }
 
-/* Filters */
-.filters {
-    text-align: center;
-    margin: 20px;
-}
-
+.filters { text-align: center; margin: 10px; }
 .filters button {
-    padding: 10px 20px;
-    border: none;
-    margin: 5px;
-    border-radius: 20px;
-    cursor: pointer;
+    padding: 10px 25px; border: 1px solid white; margin: 5px;
+    border-radius: 25px; cursor: pointer; background: transparent;
+    color: white; transition: 0.3s;
+}
+.filters button.active, .filters button:hover {
+    background: white; color: #c33764; font-weight: bold;
 }
 
-/* Projects */
 .projects-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
-    gap: 20px;
-    padding: 20px;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px; padding: 20px; max-width: 1200px; margin: auto;
 }
 
 .card {
-    background: rgba(255,255,255,0.1);
-    padding: 20px;
-    border-radius: 15px;
+    background: rgba(255,255,255,0.1); padding: 25px;
+    border-radius: 15px; border: 1px solid rgba(255,255,255,0.05);
 }
 
-.card img {
-    width: 100%;
-    border-radius: 10px;
+.card img { width: 100%; border-radius: 10px; height: 200px; object-fit: cover; }
+
+/* Yellow links fixed */
+.project-link {
+    color: #ffd369 !important;
+    text-decoration: none; font-weight: bold; margin-top: 15px; display: inline-block;
 }
 
-.metric {
-    color: yellow;
+.metric { color: #ffd369; font-weight: bold; margin: 10px 0; }
+
+.modal {
+    display: none; position: fixed; z-index: 1000; left: 0; top: 0;
+    width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(5px);
+}
+.modal-content {
+    background: #1a1e2b; margin: 15% auto; padding: 30px; border-radius: 20px;
+    width: 320px; border: 1px solid #c33764; text-align: center; position: relative;
+}
+.close { position: absolute; right: 20px; top: 10px; font-size: 28px; cursor: pointer; }
+.modal-btn {
+    display: inline-block; padding: 12px 24px; background: #c33764;
+    color: white; text-decoration: none; border-radius: 10px; margin-top: 15px;
 }
 
-/* Footer */
-footer {
-    text-align: center;
-    padding: 40px;
-}
+footer { padding: 40px; text-align: center; }
+footer a { color: white; text-decoration: none; margin: 0 10px; font-weight: bold; }
