@@ -1,62 +1,44 @@
-/* ========================= */
-/* Typing Effect */
-/* ========================= */
-
-const text = "AI/ML Engineer | Time Series Specialist 🚀";
+const text = "Data Scientist | AI/ML Engineer | Time Series Specialist 🚀";
 let i = 0;
 
 function typingEffect() {
     const el = document.getElementById("typing");
-
-    // Safety check (prevents errors if element missing)
     if (!el) return;
-
-    // Clear text on first run (prevents duplication)
-    if (i === 0) {
-        el.innerHTML = "";
-    }
-
+    if (i === 0) el.innerHTML = "";
     if (i < text.length) {
         el.innerHTML += text.charAt(i);
         i++;
-        setTimeout(typingEffect, 50);
+        setTimeout(typingEffect, 60);
     }
 }
 
-/* Run after DOM loads (safer than window.onload) */
-document.addEventListener("DOMContentLoaded", typingEffect);
-
-
-/* ========================= */
-/* Project Filter */
-/* ========================= */
-
 function filterProjects(category) {
     const cards = document.querySelectorAll(".card");
+    const buttons = document.querySelectorAll(".filters button");
+
+    buttons.forEach(btn => {
+        btn.classList.remove("active");
+        const btnText = btn.innerText.toLowerCase();
+        if(btnText.includes(category) || (category === 'all' && btnText.includes('all'))) {
+            btn.classList.add("active");
+        }
+    });
 
     cards.forEach(card => {
         if (category === "all" || card.classList.contains(category)) {
-            card.style.display = "block";  // show
+            card.style.display = "block";
         } else {
-            card.style.display = "none";   // hide
+            card.style.display = "none";
         }
     });
 }
 
+function openModal() { document.getElementById("contactModal").style.display = "block"; }
+function closeModal() { document.getElementById("contactModal").style.display = "none"; }
 
-/* ========================= */
-/* Optional: Active Button Highlight */
-/* ========================= */
+window.onclick = function(event) {
+    let modal = document.getElementById("contactModal");
+    if (event.target == modal) { modal.style.display = "none"; }
+}
 
-const buttons = document.querySelectorAll(".filters button");
-
-buttons.forEach(btn => {
-    btn.addEventListener("click", function () {
-
-        // Remove active class from all
-        buttons.forEach(b => b.classList.remove("active"));
-
-        // Add active to clicked
-        this.classList.add("active");
-    });
-});
+document.addEventListener("DOMContentLoaded", typingEffect);
