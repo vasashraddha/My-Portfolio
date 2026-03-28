@@ -18,8 +18,7 @@ function filterProjects(category) {
 
     buttons.forEach(btn => {
         btn.classList.remove("active");
-        const btnText = btn.innerText.toLowerCase();
-        if(btnText.includes(category) || (category === 'all' && btnText.includes('all'))) {
+        if(btn.innerText.toLowerCase().includes(category) || (category === 'all' && btn.innerText.includes('All'))) {
             btn.classList.add("active");
         }
     });
