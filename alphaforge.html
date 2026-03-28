@@ -3,54 +3,76 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>AlphaForge Optimizer | Dashboard</title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+  <title>AlphaForge Portfolio Dashboard</title>
   <link rel="stylesheet" href="alphaforge-style.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 </head>
 <body>
 
   <div class="dashboard">
-    <div class="nav-header"><a href="index.html">← Back to Portfolio</a></div>
-
-    <div class="brand-strip">
-        <span class="logo">AlphaForge Optimizer</span>
-        <span class="status-tag">Analysis Complete</span>
+    <div class="nav-header">
+        <a href="index.html" class="back-link">← Back to Portfolio</a>
     </div>
 
-    <div class="top-metrics">
-      <div class="m-card">
-        <span class="m-label">Expected Return</span>
-        <span class="m-value">+549.9%</span>
+    <div class="header">
+      <div class="header-left">
+        <span class="logo-dot"></span>
+        <span class="logo-text">AlphaForge Optimizer</span>
+        <span class="badge">Analysis Complete</span>
       </div>
-      <div class="m-card">
-        <span class="m-label">Sharpe Ratio</span>
-        <span class="m-value">1.08</span>
+      <div class="header-right">2018 – 2023 | 1,508 trading days</div>
+    </div>
+
+    <div class="metrics-grid">
+      <div class="metric-card accent">
+        <div class="metric-label">Expected Return</div>
+        <div class="metric-value">+549.9%</div>
       </div>
-      <div class="m-card">
-        <span class="m-label">Max Drawdown</span>
-        <span class="m-value" style="color:#f05a5a">-40.6%</span>
+      <div class="metric-card">
+        <div class="metric-label">Sharpe Ratio</div>
+        <div class="metric-value">1.08</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Max Drawdown</div>
+        <div class="metric-value red">-40.7%</div>
       </div>
     </div>
 
-    <div class="grid-layout">
+    <div class="row-2">
       <div class="card">
-        <h3>Optimal Weights</h3>
-        <div id="allocList" class="allocation-list">
-          </div>
-        <div class="chart-box"><canvas id="donutChart"></canvas></div>
+        <div class="card-title">Optimal Weights</div>
+        <div class="card-subtitle">Asset Distribution</div>
+        
+        <div class="allocation-container">
+            <div class="alloc-list" id="allocList"></div>
+            <div class="donut-wrap">
+                <canvas id="donutChart"></canvas>
+            </div>
+        </div>
       </div>
 
       <div class="card">
-        <h3>Asset Correlations</h3>
-        <div id="heatmap" class="heatmap-container"></div>
+        <div class="card-title">Risk Profile</div>
+        <div class="card-subtitle">Portfolio Characteristics</div>
+        <div id="riskTable" class="risk-table">
+            <div class="risk-row"><span class="risk-key">Annual Return</span><span class="risk-val green">33.28%</span></div>
+            <div class="risk-row"><span class="risk-key">Volatility</span><span class="risk-val amber">30.75%</span></div>
+            <div class="risk-row"><span class="risk-key">Sortino Ratio</span><span class="risk-val">1.17</span></div>
+            <div class="risk-row"><span class="risk-key">Daily VaR</span><span class="risk-val red">-3.00%</span></div>
+        </div>
       </div>
     </div>
 
     <div class="card">
-      <h3>Cumulative Returns Comparison</h3>
-      <div class="chart-box" style="height: 300px;">
+      <div class="card-title">Cumulative Returns Comparison</div>
+      <div class="chart-wrap">
         <canvas id="returnsChart"></canvas>
       </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Correlation Matrix</div>
+      <div id="heatmap" class="heatmap-grid"></div>
     </div>
   </div>
 
