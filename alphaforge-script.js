@@ -2,7 +2,7 @@
    AlphaForge Portfolio Dashboard — script.js
    ───────────────────────────────────────────── */
 
-/* ── Data ── */
+/* ── 1. Data Definitions ── */
 const ALLOCATION = [
   { ticker: 'MSFT', weight: 50.9, color: '#4b8ef1' },
   { ticker: 'AAPL', weight: 31.4, color: '#3ecf8e' },
@@ -27,163 +27,50 @@ const CORR = [
   [0.50, 0.49, 0.48, 0.50, 1.00],
 ];
 
-/* ── Allocation Bars ── */
+/* ── 2. Render Allocation List ── */
 function renderAllocation() {
   const list = document.getElementById('allocList');
   if (!list) return;
+  list.innerHTML = ''; 
 
-  ALLOCATION.forEach(item => {
+  ALLOCATION.filter(item => item.weight > 0).forEach(item => {
     const row = document.createElement('div');
     row.className = 'alloc-row';
-
     row.innerHTML = `
-      <span class="alloc-ticker ${item.weight === 0 ? 'muted' : ''}">${item.ticker}</span>
+      <span style="font-family: 'DM Mono'; width: 50px; font-size: 13px;">${item.ticker}</span>
       <div class="alloc-bar-bg">
-        <div class="alloc-bar" style="width: 0%; background: ${item.color};"
-             data-target="${item.weight}"></div>
+        <div class="alloc-bar" style="width: ${item.weight}%; background: ${item.color};"></div>
       </div>
-      <span class="alloc-pct ${item.weight === 0 ? 'muted' : ''}">${item.weight.toFixed(1)}%</span>
+      <span style="font-family: 'DM Mono'; width: 45px; text-align: right; font-size: 13px;">${item.weight}%</span>
     `;
     list.appendChild(row);
   });
-
-  /* Animate bars after paint */
-  requestAnimationFrame(() => {
-    requestAnimationFrame(() => {
-      document.querySelectorAll('.alloc-bar[data-target]').forEach(bar => {
-        bar.style.width = bar.dataset.target + '%';
-      });
-    });
-  });
 }
 
-/* ── Donut Chart ── */
-function renderDonut() {
-  const canvas = document.getElementById('donutChart');
-  if (!canvas) return;
-
-  const active = ALLOCATION.filter(a => a.weight > 0);
-  const remaining = 100 - active.reduce((s, a) => s + a.weight, 0);
-
-  new Chart(canvas, {
-    type: 'doughnut',
-    data: {
-      labels: [...active.map(a => a.ticker), 'Excluded'],
-      datasets: [{
-        data: [...active.map(a => a.weight), remaining > 0 ? remaining : 0],
-        backgroundColor: [...active.map(a => a.color), 'rgba(255,255,255,0.04)'],
-        borderColor: 'transparent',
-        borderWidth: 0,
-        hoverOffset: 6,
-      }]
-    },
-    options: {
-      responsive: false,
-      cutout: '72%',
-      plugins: {
-        legend: { display: false },
-        tooltip: {
-          callbacks: {
-            label: ctx => ` ${ctx.label}: ${ctx.parsed.toFixed(1)}%`
-          }
-        }
-      },
-      animation: { animateRotate: true, duration: 900 }
-    }
-  });
-}
-
-/* ── Returns Bar Chart ── */
-function renderReturns() {
-  const canvas = document.getElementById('returnsChart');
-  if (!canvas) return;
-
-  new Chart(canvas, {
-    type: 'bar',
-    data: {
-      labels: RETURNS.labels,
-      datasets: [{
-        label: 'Total Return (%)',
-        data: RETURNS.values,
-        backgroundColor: RETURNS.colors.map(c => c + 'cc'),
-        borderColor: RETURNS.colors,
-        borderWidth: 1.5,
-        borderRadius: 6,
-        borderSkipped: false,
-      }]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        legend: { display: false },
-        tooltip: {
-          callbacks: {
-            label: ctx => ` Return: +${ctx.parsed.y.toFixed(1)}%`
-          }
-        }
-      },
-      scales: {
-        x: {
-          grid: { display: false },
-          ticks: {
-            color: '#8b90a4',
-            font: { family: "'DM Mono', monospace", size: 12 }
-          },
-          border: { display: false }
-        },
-        y: {
-          grid: { color: 'rgba(255,255,255,0.04)' },
-          ticks: {
-            color: '#555b6e',
-            font: { family: "'DM Mono', monospace", size: 11 },
-            callback: val => '+' + val + '%'
-          },
-          border: { display: false }
-        }
-      },
-      animation: { duration: 800, easing: 'easeOutQuart' }
-    }
-  });
-}
-
-/* ── Correlation Heatmap ── */
+/* ── 3. Render Correlation Heatmap ── */
 function renderHeatmap() {
   const grid = document.getElementById('heatmap');
   if (!grid) return;
+  grid.innerHTML = '';
 
-  /* Helper: interpolate color based on correlation value */
-  function corrColor(val) {
-    /* Low corr → dark teal, high corr → bright blue */
-    const t = (val - 0.4) / 0.6; /* normalize 0.4–1.0 → 0–1 */
-    const clamped = Math.max(0, Math.min(1, t));
-    const r = Math.round(30  + clamped * (75  - 30));
-    const g = Math.round(60  + clamped * (142 - 60));
-    const b = Math.round(100 + clamped * (241 - 100));
-    const alpha = 0.15 + clamped * 0.75;
-    return `rgba(${r},${g},${b},${alpha})`;
-  }
+  // Spacer for the top-left corner
+  grid.appendChild(document.createElement('div'));
 
-  function textColor(val) {
-    return val > 0.7 ? '#f0f2f7' : '#8b90a4';
-  }
-
-  /* Column headers row */
-  const spacer = document.createElement('div');
-  spacer.className = 'hm-spacer';
-  grid.appendChild(spacer);
-
+  // Column Headers
   TICKERS.forEach(t => {
     const label = document.createElement('div');
-    label.className = 'hm-col-label';
+    label.style.textAlign = 'center';
+    label.style.fontSize = '11px';
+    label.style.color = '#8b90a4';
     label.textContent = t;
     grid.appendChild(label);
   });
 
-  /* Data rows */
+  // Rows
   TICKERS.forEach((rowTicker, r) => {
     const rowLabel = document.createElement('div');
-    rowLabel.className = 'hm-row-label';
+    rowLabel.style.fontSize = '11px';
+    rowLabel.style.color = '#8b90a4';
     rowLabel.textContent = rowTicker;
     grid.appendChild(rowLabel);
 
@@ -191,19 +78,82 @@ function renderHeatmap() {
       const val = CORR[r][c];
       const cell = document.createElement('div');
       cell.className = 'hm-cell';
-      cell.style.background = corrColor(val);
-      cell.style.color = textColor(val);
+      cell.style.background = `rgba(75, 142, 241, ${val})`;
+      cell.style.color = val > 0.7 ? '#fff' : '#8b90a4';
+      cell.style.fontSize = '10px';
+      cell.style.height = '40px';
+      cell.style.display = 'flex';
+      cell.style.alignItems = 'center';
+      cell.style.justifyContent = 'center';
+      cell.style.borderRadius = '4px';
       cell.textContent = val.toFixed(2);
-      cell.title = `${rowTicker} vs ${TICKERS[c]}: ${val.toFixed(2)}`;
       grid.appendChild(cell);
     });
   });
 }
 
-/* ── Init ── */
+/* ── 4. Initialize Charts ── */
 document.addEventListener('DOMContentLoaded', () => {
   renderAllocation();
-  renderDonut();
-  renderReturns();
   renderHeatmap();
+
+  // 1. Donut Chart
+  const donutCtx = document.getElementById('donutChart');
+  if (donutCtx) {
+    new Chart(donutCtx, {
+      type: 'doughnut',
+      data: {
+        labels: ALLOCATION.map(a => a.ticker),
+        datasets: [{
+          data: ALLOCATION.map(a => a.weight),
+          backgroundColor: ALLOCATION.map(a => a.color),
+          hoverOffset: 4,
+          borderWidth: 0
+        }]
+      },
+      options: {
+        cutout: '70%',
+        plugins: { legend: { display: false } }
+      }
+    });
+  }
+
+  // 2. Returns Comparison Bar Chart (THE MISSING PIECE)
+  const barCtx = document.getElementById('returnsChart');
+  if (barCtx) {
+    new Chart(barCtx, {
+      type: 'bar',
+      data: {
+        labels: RETURNS.labels,
+        datasets: [{
+          label: 'Total Return (%)',
+          data: RETURNS.values,
+          backgroundColor: RETURNS.colors,
+          borderRadius: 6,
+          barThickness: 25
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false }
+        },
+        scales: {
+          x: {
+            grid: { display: false },
+            ticks: { color: '#8b90a4', font: { size: 11 } }
+          },
+          y: {
+            grid: { color: 'rgba(255,255,255,0.05)' },
+            ticks: { 
+              color: '#8b90a4', 
+              font: { size: 11 },
+              callback: (value) => value + '%' 
+            }
+          }
+        }
+      }
+    });
+  }
 });
