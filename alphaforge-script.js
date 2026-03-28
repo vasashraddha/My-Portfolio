@@ -1,119 +1,101 @@
-const ALLOCATION_DATA = [
-  { ticker: 'MSFT', weight: 50.9, color: '#4b8ef1' },
-  { ticker: 'AAPL', weight: 31.4, color: '#3ecf8e' },
-  { ticker: 'TSLA', weight: 17.8, color: '#f5a623' }
+const ALLOCATION = [
+  { ticker: 'MSFT', weight: 50.9, color: '#3b82f6' },
+  { ticker: 'AAPL', weight: 31.4, color: '#10b981' },
+  { ticker: 'TSLA', weight: 17.8, color: '#f59e0b' }
 ];
 
-const PERFORMANCE_DATA = {
+const RETURNS = {
   labels: ['Portfolio', 'TSLA', 'AAPL', 'MSFT', 'GOOGL', 'AMZN'],
   values: [549.9, 1062.8, 372.8, 368.7, 160.3, 155.6],
-  colors: ['#4b8ef1', '#f5a623', '#3ecf8e', '#3ecf8e', '#3ecf8e', '#3ecf8e']
+  colors: ['#3b82f6', '#f59e0b', '#10b981', '#10b981', '#10b981', '#10b981']
 };
 
-function initAllocation() {
+function renderAllocation() {
   const container = document.getElementById('allocList');
   if (!container) return;
 
-  ALLOCATION_DATA.forEach(item => {
+  ALLOCATION.forEach(item => {
     const row = document.createElement('div');
     row.className = 'alloc-row';
     row.innerHTML = `
       <div class="alloc-ticker">${item.ticker}</div>
-      <div class="alloc-progress-bg">
-        <div class="alloc-progress-fill" style="width: 0%; background: ${item.color};" data-width="${item.weight}%"></div>
+      <div class="alloc-bar-wrapper">
+        <div class="alloc-bar-fill" style="width: 0%; background: ${item.color};" data-val="${item.weight}%"></div>
       </div>
       <div class="alloc-pct">${item.weight}%</div>
     `;
     container.appendChild(row);
   });
 
-  // Trigger animation after a short delay
   setTimeout(() => {
-    document.querySelectorAll('.alloc-progress-fill').forEach(bar => {
-      bar.style.width = bar.getAttribute('data-width');
+    document.querySelectorAll('.alloc-bar-fill').forEach(bar => {
+      bar.style.width = bar.getAttribute('data-val');
     });
-  }, 300);
+  }, 200);
 }
 
 function initCharts() {
-  // 1. Donut Chart
+  // Donut Chart
   new Chart(document.getElementById('donutChart'), {
     type: 'doughnut',
     data: {
-      labels: ALLOCATION_DATA.map(a => a.ticker),
+      labels: ALLOCATION.map(a => a.ticker),
       datasets: [{
-        data: ALLOCATION_DATA.map(a => a.weight),
-        backgroundColor: ALLOCATION_DATA.map(a => a.color),
-        borderWidth: 0,
-        hoverOffset: 15
+        data: ALLOCATION.map(a => a.weight),
+        backgroundColor: ALLOCATION.map(a => a.color),
+        borderWidth: 0
       }]
     },
-    options: {
-      maintainAspectRatio: false,
-      plugins: { legend: { display: false } },
-      cutout: '70%'
-    }
+    options: { maintainAspectRatio: false, cutout: '75%', plugins: { legend: { display: false } } }
   });
 
-  // 2. Returns Bar Chart
+  // Bar Chart
   new Chart(document.getElementById('returnsChart'), {
     type: 'bar',
     data: {
-      labels: PERFORMANCE_DATA.labels,
+      labels: RETURNS.labels,
       datasets: [{
-        data: PERFORMANCE_DATA.values,
-        backgroundColor: PERFORMANCE_DATA.colors,
-        borderRadius: 8
+        data: RETURNS.values,
+        backgroundColor: RETURNS.colors,
+        borderRadius: 5
       }]
     },
     options: {
       maintainAspectRatio: false,
       plugins: { legend: { display: false } },
       scales: {
-        y: { 
-          grid: { color: 'rgba(255,255,255,0.05)' },
-          ticks: { color: '#8b90a4', callback: v => v + '%' }
-        },
-        x: { ticks: { color: '#8b90a4' } }
+        y: { ticks: { color: '#94a3b8', callback: v => v + '%' }, grid: { color: 'rgba(255,255,255,0.05)' } },
+        x: { ticks: { color: '#94a3b8' } }
       }
     }
   });
 }
 
-function initHeatmap() {
+function renderHeatmap() {
   const grid = document.getElementById('heatmap');
-  const tickers = ['AAPL', 'AMZN', 'GOOGL', 'MSFT', 'TSLA'];
+  const tks = ['AAPL', 'AMZN', 'GOOGL', 'MSFT', 'TSLA'];
   grid.appendChild(document.createElement('div'));
-  tickers.forEach(t => {
-    const header = document.createElement('div');
-    header.style.textAlign = 'center';
-    header.style.fontSize = '11px';
-    header.style.color = '#8b90a4';
-    header.textContent = t;
-    grid.appendChild(header);
+  tks.forEach(t => {
+    const d = document.createElement('div');
+    d.style.textAlign = 'center'; d.style.fontSize = '10px'; d.textContent = t;
+    grid.appendChild(d);
   });
 
-  tickers.forEach((row, i) => {
-    const rowLabel = document.createElement('div');
-    rowLabel.style.fontSize = '11px';
-    rowLabel.style.color = '#8b90a4';
-    rowLabel.textContent = row;
-    grid.appendChild(rowLabel);
-    
-    tickers.forEach((_, j) => {
+  tks.forEach((row, i) => {
+    const rl = document.createElement('div'); rl.style.fontSize = '10px'; rl.textContent = row; grid.appendChild(rl);
+    tks.forEach((col, j) => {
       const cell = document.createElement('div');
       cell.className = 'hm-cell';
-      const val = i === j ? 1.00 : 0.4 + (Math.random() * 0.4);
-      cell.style.background = `rgba(75, 142, 241, ${val})`;
-      cell.style.color = val > 0.7 ? '#fff' : '#8b90a4';
-      cell.textContent = val.toFixed(2);
+      const v = i === j ? 1.00 : 0.4 + (Math.random() * 0.4);
+      cell.style.background = `rgba(59, 130, 246, ${v})`;
+      cell.textContent = v.toFixed(2);
       grid.appendChild(cell);
     });
   });
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  initAllocation();
+  renderAllocation();
   initCharts();
-  initHeatmap();
+  renderHeatmap();
 });
