@@ -5,79 +5,128 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shraddha Vasa | DS/AI/ML Portfolio</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
 <header>
-    <h1>Shraddha Vasa</h1>
+    <h1>✨ Shraddha Vasa ✨</h1>
     <p id="typing"></p> 
 </header>
 
-<div class="filters">
-    <button onclick="filterProjects('all')">All</button>
-    <button onclick="filterProjects('ml')">AI/ML</button>
-    <button onclick="filterProjects('timeseries')">Time Series</button>
-</div>
-
-<section>
-    <h2 style="text-align: center; margin-top: 40px;">✨ My Projects</h2>
-
-    <div class="projects-container">
-        <div class="card ml timeseries">
-            <img src="images/project1.png" alt="IoT Data Linear Regression">
-            <h3>IoT Data Linear Regression</h3>
-            <p>Predictive Analytics for IoT Data.</p>
-            <p class="metric">Accuracy: 55-57%</p>
-<a href="https://github.com/vasashraddha/IOT_works/blob/main/Predictive_Analytics_for_IoT_Data_A_Linear_Regression_Approach.ipynb" 
-   class="project-link">🔗 View Code</a>
+<section class="about-section">
+    <div class="bio-glass-card">
+        <div class="visual-bg">
+            <div class="blob"></div>
+            <div class="blob"></div>
         </div>
+        
+        <div class="bio-content">
+            <h1 class="about-title">🎨 Imagining Data. Creating Solutions.</h1>
 
-        <div class="card ml timeseries">
-            <img src="images/project2.png" alt="Stock Prediction">
-            <h3>📈 Stock Prediction</h3>
-            <p>Forecast stock prices using ARIMA.</p>
-            <p class="metric">Accuracy: 89%</p>
-            <a href="#" class="project-link">🔗 View Code</a>
-        </div>
+            <p>
+                I am a <strong>Data Scientist</strong> with <strong>4+ years of experience</strong> 💼, delivering 
+                data-driven solutions through <strong>machine learning 🤖, predictive analytics 📊, and AI systems</strong>. 
+                I specialize in building <strong>production-ready models</strong> such as 
+                <strong>Remaining Useful Life (RUL) forecasting ⏳</strong>, 
+                <strong>demand forecasting 📦</strong>, and 
+                <strong>churn prediction 🔄</strong>.
+            </p>
 
-        <div class="card ml">
-            <img src="images/project3.png" alt="Fraud Detection">
-            <h3>💳 Fraud Detection</h3>
-            <p>Detect fraud using classification model.</p>
-            <p class="metric">F1 Score: 0.92</p>
-            <a href="#" class="project-link">🔗 View Code</a>
-        </div>
+            <p>
+                I design <strong>end-to-end AI solutions 🧠</strong>, including 
+                <strong>Generative AI (RAG) systems 🔍</strong>, using modern frameworks like 
+                <strong>LangChain, Transformers, and FAISS ⚙️</strong>. 
+                I transform complex data into <strong>actionable insights 📈</strong> through dashboards and automation.
+            </p>
 
-        <div class="card ml timeseries">
-            <img src="https://via.placeholder.com/400x250/1a1e2b/ffffff?text=AlphaForge+Optimizer" alt="AlphaForge">
-            <h3>🚀 AlphaForge Optimizer</h3>
-            <p>Portfolio optimization using <strong>PyPortfolioOpt</strong> and <strong>Covariance Shrinkage</strong>.</p>
-            <p class="metric">Sharpe Ratio: 1.08</p>
-            <a href="alphaforge.html" class="project-link">📊 View Live Dashboard</a>
+            <p>
+                As a <strong>cochlear implant user 🦻 with congenital hearing loss</strong>, 
+                I bring a <strong>unique perspective 🌟, deep focus 🎯, and resilience 💪</strong> 
+                to solving complex data challenges.
+            </p>
+
+            <div class="creative-stats">
+                <div class="stat-item">
+                    <span>💼 4+</span>
+                    <p>Years Experience</p>
+                </div>
+                <div class="stat-item">
+                    <span>🎓 MSc</span>
+                    <p>Data Science</p>
+                </div>
+                <div class="stat-item">
+                    <span>🛠️ AI</span>
+                    <p>Architect</p>
+                </div>
+            </div>
         </div>
     </div>
 </section>
 
-<section style="padding: 40px; text-align: center;">
-    <h2>🧠 Skills</h2>
-    <ul>
-        <li>Python</li>
-        <li>Machine Learning</li>
-        <li>Time Series</li>
-        <li>Pandas</li>
-        <li>yfinance</li>
-        <li>PyPortfolioOpt</li>
-    </ul>
+<div class="filters">
+    <button class="active" onclick="filterProjects('all')">🌟 All</button>
+    <button onclick="filterProjects('ml')">🧠 AI/ML</button>
+    <button onclick="filterProjects('timeseries')">📈 Time Series</button>
+</div>
+
+<section class="projects-container">
+    <div class="card ml timeseries">
+    <img src="Project/IoT_1.jpeg" alt="IoT Data Analysis">
+    <h3>📡 IoT Data Linear Regression</h3>
+    <p>Predictive Analytics for IoT Data.</p>
+    <p class="metric">🎯 Accuracy: 57%</p>
+    <a href="https://nbviewer.org/github/vasashraddha/IOT_works/blob/main/Predictive_Analytics_for_IoT_Data_A_Linear_Regression_Approach.ipynb" 
+       class="project-link" 
+       target="_blank">🔗 View Code</a>
+</div>
+
+    <div class="card ml timeseries">
+        <img src="Project/IoT_2.jpeg" alt="Stock Prediction">
+        <h3>💹 Stock Prediction</h3>
+        <p>Forecast stock prices using ARIMA.</p>
+        <p class="metric">📊 Accuracy: 89%</p>
+        <a href="#" class="project-link">🔗 View Code</a>
+    </div>
+
+    <div class="card ml">
+        <img src="Project/Alpha_2.jpeg" alt="Fraud Detection">
+        <h3>🛡️ Fraud Detection</h3>
+        <p>Anomaly detection in transactions.</p>
+        <p class="metric">🔍 F1 Score: 0.92</p>
+        <a href="#" class="project-link">🔗 View Code</a>
+    </div>
+
+    <div class="card ml timeseries">
+        <img src="Project/Alpha_1.jpeg" alt="AlphaForge">
+        <h3>🚀 AlphaForge Optimizer</h3>
+        <p>Multi-asset portfolio optimizer.</p>
+        <p class="metric">💎 Sharpe Ratio: 1.08</p>
+        <a href="alphaforge.html" class="project-link">📊 Open Live Dashboard</a>
+    </div>
 </section>
 
-<footer style="padding: 40px; text-align: center; background: rgba(0,0,0,0.2);">
-    <h2>🌐 Connect</h2>
-    <a href="https://github.com/vasashraddha" style="color: white;">GitHub</a> |
-    <a href="https://www.linkedin.com/in/vasa-shraddha" style="color: white;">LinkedIn</a>
+<footer>
+    <h2>🌐 Connect with Me</h2>
+    <div class="footer-links">
+        <a href="https://github.com/vasashraddha" target="_blank">💻 GitHub</a> |
+        <a href="https://www.linkedin.com/in/vasa-shraddha" target="_blank">🤝 LinkedIn</a> | 
+        <a href="javascript:void(0)" onclick="openModal()">📩 Contact Me</a>
+    </div>
 </footer>
 
-<script src="script.js"></script>
+<div id="contactModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h3>👋 Get in Touch</h3>
+        <p>📧 <strong>Email:</strong> shraddhavasa14@gmail.com</p>
+        <p>📞 <strong>Mobile:</strong> +91 6302883803</p>
+        <div style="margin-top: 20px;">
+            <a href="mailto:shraddhavasa14@gmail.com" class="modal-btn">🚀 Send Direct Email</a>
+        </div>
+    </div>
+</div>
 
+<script src="script.js"></script>
 </body>
 </html>
