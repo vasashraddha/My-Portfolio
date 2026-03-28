@@ -1,4 +1,4 @@
-const text = "Data Scientist | AI/ML Engineer | Time Series Specialist 🚀";
+const text = " Data Scientist | AI/ML Engineer | Time Series Specialist 🚀";
 let i = 0;
 
 function typingEffect() {
