@@ -1,18 +1,62 @@
-let text = "AI/ML Engineer | Time Series Specialist 🚀";
+/* ========================= */
+/* Typing Effect */
+/* ========================= */
+
+const text = "AI/ML Engineer | Time Series Specialist 🚀";
 let i = 0;
 
-function typing() {
+function typingEffect() {
+    const el = document.getElementById("typing");
+
+    // Safety check (prevents errors if element missing)
+    if (!el) return;
+
+    // Clear text on first run (prevents duplication)
+    if (i === 0) {
+        el.innerHTML = "";
+    }
+
     if (i < text.length) {
-        document.getElementById("typing").innerHTML += text.charAt(i);
+        el.innerHTML += text.charAt(i);
         i++;
-        setTimeout(typing, 50);
+        setTimeout(typingEffect, 50);
     }
 }
-window.onload = typing;
+
+/* Run after DOM loads (safer than window.onload) */
+document.addEventListener("DOMContentLoaded", typingEffect);
+
+
+/* ========================= */
+/* Project Filter */
+/* ========================= */
 
 function filterProjects(category) {
-    let cards = document.getElementsByClassName("card");
-    for (let card of cards) {
-        card.style.display = (category === "all" || card.classList.contains(category)) ? "block" : "none";
-    }
+    const cards = document.querySelectorAll(".card");
+
+    cards.forEach(card => {
+        if (category === "all" || card.classList.contains(category)) {
+            card.style.display = "block";  // show
+        } else {
+            card.style.display = "none";   // hide
+        }
+    });
 }
+
+
+/* ========================= */
+/* Optional: Active Button Highlight */
+/* ========================= */
+
+const buttons = document.querySelectorAll(".filters button");
+
+buttons.forEach(btn => {
+    btn.addEventListener("click", function () {
+
+        // Remove active class from all
+        buttons.forEach(b => b.classList.remove("active"));
+
+        // Add active to clicked
+        this.classList.add("active");
+    });
+});
