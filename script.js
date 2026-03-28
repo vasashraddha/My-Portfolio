@@ -1,11 +1,11 @@
-let text = "AI/ML Engineer | Time Series Specialist 🚀";
+const text = "AI/ML Engineer | Time Series Specialist 🚀";
 let i = 0;
 
 function typing() {
     if (i < text.length) {
         document.getElementById("typing").innerHTML += text.charAt(i);
         i++;
-        setTimeout(typing, 50);
+        setTimeout(typing, 80);
     }
 }
 window.onload = typing;
@@ -13,14 +13,6 @@ window.onload = typing;
 function filterProjects(category) {
     let cards = document.getElementsByClassName("card");
     for (let card of cards) {
-        if (category === "all") {
-            card.style.display = "block";
-        } else {
-            if (card.classList.contains(category)) {
-                card.style.display = "block";
-            } else {
-                card.style.display = "none";
-            }
-        }
+        card.style.display = (category === "all" || card.classList.contains(category)) ? "block" : "none";
     }
 }
