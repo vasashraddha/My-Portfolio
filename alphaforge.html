@@ -14,7 +14,7 @@
 
     <div class="brand-strip">
         <span class="logo">AlphaForge Optimizer</span>
-        <span class="status-tag">Optimal Frontier Found</span>
+        <span class="status-tag">Analysis Complete</span>
     </div>
 
     <div class="top-metrics">
@@ -27,26 +27,27 @@
         <span class="m-value">1.08</span>
       </div>
       <div class="m-card">
-        <span class="m-label">Volatility (Annual)</span>
-        <span class="m-value" style="color:#f5a623">30.8%</span>
+        <span class="m-label">Max Drawdown</span>
+        <span class="m-value" style="color:#f05a5a">-40.6%</span>
       </div>
     </div>
 
     <div class="grid-layout">
       <div class="card">
         <h3>Optimal Weights</h3>
-        <div id="allocList" class="allocation-list"></div>
+        <div id="allocList" class="allocation-list">
+          </div>
         <div class="chart-box"><canvas id="donutChart"></canvas></div>
       </div>
 
       <div class="card">
-        <h3>Correlation Matrix</h3>
+        <h3>Asset Correlations</h3>
         <div id="heatmap" class="heatmap-container"></div>
       </div>
     </div>
 
     <div class="card">
-      <h3>Returns Comparison (Cumulative %)</h3>
+      <h3>Cumulative Returns Comparison</h3>
       <div class="chart-box" style="height: 300px;">
         <canvas id="returnsChart"></canvas>
       </div>
