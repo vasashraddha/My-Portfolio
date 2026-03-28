@@ -35,27 +35,26 @@ function renderAllocation() {
   ALLOCATION.forEach(item => {
     const row = document.createElement('div');
     row.className = 'alloc-row';
-    row.style.display = 'flex';
-    row.style.alignItems = 'center';
-    row.style.marginBottom = '12px';
 
     row.innerHTML = `
-      <span style="width: 60px; font-family: 'DM Mono'; font-size: 13px; color: ${item.weight === 0 ? '#555b6e' : '#f0f2f7'}">${item.ticker}</span>
-      <div style="flex: 1; height: 6px; background: rgba(255,255,255,0.05); border-radius: 3px; margin: 0 15px; overflow: hidden;">
-        <div class="alloc-bar" style="width: 0%; height: 100%; background: ${item.color}; transition: width 1s ease-out; border-radius: 3px;"
+      <span class="alloc-ticker ${item.weight === 0 ? 'muted' : ''}">${item.ticker}</span>
+      <div class="alloc-bar-bg">
+        <div class="alloc-bar" style="width: 0%; background: ${item.color};"
              data-target="${item.weight}"></div>
       </div>
-      <span style="width: 50px; text-align: right; font-family: 'DM Mono'; font-size: 13px; color: ${item.weight === 0 ? '#555b6e' : '#8b90a4'}">${item.weight.toFixed(1)}%</span>
+      <span class="alloc-pct ${item.weight === 0 ? 'muted' : ''}">${item.weight.toFixed(1)}%</span>
     `;
     list.appendChild(row);
   });
 
-  // Trigger animation
-  setTimeout(() => {
-    document.querySelectorAll('.alloc-bar').forEach(bar => {
-      bar.style.width = bar.getAttribute('data-target') + '%';
+  /* Animate bars after paint */
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      document.querySelectorAll('.alloc-bar[data-target]').forEach(bar => {
+        bar.style.width = bar.dataset.target + '%';
+      });
     });
-  }, 100);
+  });
 }
 
 /* ── Donut Chart ── */
@@ -64,33 +63,32 @@ function renderDonut() {
   if (!canvas) return;
 
   const active = ALLOCATION.filter(a => a.weight > 0);
-  
+  const remaining = 100 - active.reduce((s, a) => s + a.weight, 0);
+
   new Chart(canvas, {
     type: 'doughnut',
     data: {
-      labels: active.map(a => a.ticker),
+      labels: [...active.map(a => a.ticker), 'Excluded'],
       datasets: [{
-        data: active.map(a => a.weight),
-        backgroundColor: active.map(a => a.color),
+        data: [...active.map(a => a.weight), remaining > 0 ? remaining : 0],
+        backgroundColor: [...active.map(a => a.color), 'rgba(255,255,255,0.04)'],
+        borderColor: 'transparent',
         borderWidth: 0,
-        hoverOffset: 10,
+        hoverOffset: 6,
       }]
     },
     options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      cutout: '75%',
+      responsive: false,
+      cutout: '72%',
       plugins: {
         legend: { display: false },
         tooltip: {
-          backgroundColor: '#1a1e2b',
-          titleFont: { family: 'DM Sans' },
-          bodyFont: { family: 'DM Mono' },
           callbacks: {
-            label: (ctx) => ` ${ctx.label}: ${ctx.raw.toFixed(1)}%`
+            label: ctx => ` ${ctx.label}: ${ctx.parsed.toFixed(1)}%`
           }
         }
-      }
+      },
+      animation: { animateRotate: true, duration: 900 }
     }
   });
 }
@@ -100,43 +98,84 @@ function renderReturns() {
   const canvas = document.getElementById('returnsChart');
   if (!canvas) return;
 
+  /* Unique color per bar for instant readability */
+  const BAR_COLORS = ['#4b8ef1', '#f5a623', '#3ecf8e', '#a78bfa', '#f472b6', '#34d399'];
+
+  /* Data label plugin — draws value on top of each bar */
+  const dataLabelPlugin = {
+    id: 'dataLabels',
+    afterDatasetsDraw(chart) {
+      const { ctx, data } = chart;
+      chart.getDatasetMeta(0).data.forEach((bar, i) => {
+        const val = data.datasets[0].data[i];
+        ctx.save();
+        ctx.font = '500 11px "DM Mono", monospace';
+        ctx.fillStyle = '#f0f2f7';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'bottom';
+        ctx.fillText('+' + val.toFixed(1) + '%', bar.x, bar.y - 4);
+        ctx.restore();
+      });
+    }
+  };
+
   new Chart(canvas, {
     type: 'bar',
+    plugins: [dataLabelPlugin],
     data: {
       labels: RETURNS.labels,
       datasets: [{
+        label: 'Total Return (%)',
         data: RETURNS.values,
-        backgroundColor: RETURNS.colors.map(c => c + 'cc'),
-        borderRadius: 6,
+        backgroundColor: BAR_COLORS.map(c => c + 'bb'),
+        borderColor: BAR_COLORS,
+        borderWidth: 1.5,
+        borderRadius: 8,
         borderSkipped: false,
       }]
     },
     options: {
       responsive: true,
       maintainAspectRatio: false,
+      layout: { padding: { top: 28 } },
       plugins: {
         legend: { display: false },
         tooltip: {
           backgroundColor: '#1a1e2b',
+          titleColor: '#8b90a4',
+          bodyColor: '#f0f2f7',
+          borderColor: 'rgba(255,255,255,0.1)',
+          borderWidth: 1,
+          padding: 10,
           callbacks: {
-            label: (ctx) => ` Return: +${ctx.raw.toFixed(1)}%`
+            label: ctx => `  Total return: +${ctx.parsed.y.toFixed(1)}%`
           }
         }
       },
       scales: {
         x: {
           grid: { display: false },
-          ticks: { color: '#8b90a4', font: { family: 'DM Mono', size: 11 } }
+          ticks: {
+            color: '#8b90a4',
+            font: { family: "'DM Mono', monospace", size: 12, weight: '500' },
+            padding: 6,
+          },
+          border: { display: false }
         },
         y: {
-          grid: { color: 'rgba(255,255,255,0.05)' },
-          ticks: { 
-            color: '#555b6e', 
-            font: { family: 'DM Mono', size: 10 },
-            callback: (val) => '+' + val + '%'
-          }
+          grid: { color: 'rgba(255,255,255,0.05)', lineWidth: 0.5 },
+          ticks: {
+            color: '#555b6e',
+            font: { family: "'DM Mono', monospace", size: 11 },
+            callback: val => val + '%',
+            maxTicksLimit: 6,
+          },
+          border: { display: false },
+          suggestedMin: 0,
+          suggestedMax: 1200,
         }
-      }
+      },
+      animation: { duration: 900, easing: 'easeOutQuart' }
     }
   });
 }
@@ -146,8 +185,10 @@ function renderHeatmap() {
   const grid = document.getElementById('heatmap');
   if (!grid) return;
 
+  /* Helper: interpolate color based on correlation value */
   function corrColor(val) {
-    const t = (val - 0.4) / 0.6; 
+    /* Low corr → dark teal, high corr → bright blue */
+    const t = (val - 0.4) / 0.6; /* normalize 0.4–1.0 → 0–1 */
     const clamped = Math.max(0, Math.min(1, t));
     const r = Math.round(30  + clamped * (75  - 30));
     const g = Math.round(60  + clamped * (142 - 60));
@@ -156,50 +197,43 @@ function renderHeatmap() {
     return `rgba(${r},${g},${b},${alpha})`;
   }
 
-  // Header Row
+  function textColor(val) {
+    return val > 0.7 ? '#f0f2f7' : '#8b90a4';
+  }
+
+  /* Column headers row */
   const spacer = document.createElement('div');
+  spacer.className = 'hm-spacer';
   grid.appendChild(spacer);
+
   TICKERS.forEach(t => {
     const label = document.createElement('div');
-    label.style.textAlign = 'center';
-    label.style.fontSize = '11px';
-    label.style.color = '#8b90a4';
-    label.style.paddingBottom = '8px';
-    label.style.fontFamily = 'DM Mono';
+    label.className = 'hm-col-label';
     label.textContent = t;
     grid.appendChild(label);
   });
 
-  // Matrix Rows
+  /* Data rows */
   TICKERS.forEach((rowTicker, r) => {
     const rowLabel = document.createElement('div');
-    rowLabel.style.fontSize = '11px';
-    rowLabel.style.color = '#8b90a4';
-    rowLabel.style.fontFamily = 'DM Mono';
-    rowLabel.style.display = 'flex';
-    rowLabel.style.alignItems = 'center';
+    rowLabel.className = 'hm-row-label';
     rowLabel.textContent = rowTicker;
     grid.appendChild(rowLabel);
 
     TICKERS.forEach((_, c) => {
       const val = CORR[r][c];
       const cell = document.createElement('div');
+      cell.className = 'hm-cell';
       cell.style.background = corrColor(val);
-      cell.style.color = val > 0.75 ? '#fff' : '#8b90a4';
-      cell.style.height = '45px';
-      cell.style.display = 'flex';
-      cell.style.alignItems = 'center';
-      cell.style.justifyContent = 'center';
-      cell.style.borderRadius = '4px';
-      cell.style.fontSize = '11px';
-      cell.style.fontFamily = 'DM Mono';
+      cell.style.color = textColor(val);
       cell.textContent = val.toFixed(2);
+      cell.title = `${rowTicker} vs ${TICKERS[c]}: ${val.toFixed(2)}`;
       grid.appendChild(cell);
     });
   });
 }
 
-/* ── Initialization ── */
+/* ── Init ── */
 document.addEventListener('DOMContentLoaded', () => {
   renderAllocation();
   renderDonut();
