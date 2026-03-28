@@ -7,35 +7,99 @@ body {
     overflow-x: hidden;
 }
 
-header { text-align: center; padding: 40px 20px 10px 20px; }
+header { text-align: center; padding: 60px 20px 10px 20px; }
 
-.bio-visual-container { padding: 20px; max-width: 900px; margin: auto; }
+/* --- About Section & Glassmorphism --- */
+.about-section {
+    padding: 20px;
+    max-width: 900px;
+    margin: auto;
+}
 
 .bio-glass-card {
     position: relative;
-    background: rgba(255,255,255,0.08);
+    background: rgba(255, 255, 255, 0.08);
     backdrop-filter: blur(20px);
     padding: 40px;
-    border-radius: 20px;
+    border-radius: 30px;
     overflow: hidden;
-    border: 1px solid rgba(255,255,255,0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.visual-bg { position: absolute; width: 100%; height: 100%; z-index: -1; top: 0; left: 0; }
+.about-title {
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-bottom: 25px;
+    background: linear-gradient(90deg, #ffd369, #ff7eb3);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
 
+.bio-content p {
+    line-height: 1.8;
+    margin-bottom: 20px;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* Animations (Blobs) */
+.visual-bg { position: absolute; width: 100%; height: 100%; z-index: -1; top: 0; left: 0; }
 .blob {
-    position: absolute; width: 250px; height: 250px;
+    position: absolute; width: 300px; height: 300px;
     background: rgba(255, 182, 193, 0.3);
     filter: blur(80px); border-radius: 50%;
     animation: move 10s infinite alternate;
 }
-
+.blob:nth-child(2) {
+    background: rgba(255, 211, 105, 0.2);
+    bottom: -50px; right: -50px;
+    animation-delay: -5s;
+}
 @keyframes move {
     from { transform: translate(-15%, -15%); }
     to { transform: translate(15%, 15%); }
 }
 
-.filters { text-align: center; margin: 10px; }
+/* --- Stats Styling --- */
+.creative-stats {
+    display: flex;
+    gap: 20px;
+    margin-top: 30px;
+    flex-wrap: wrap;
+}
+
+.stat-item {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 15px 20px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    text-align: center;
+    flex: 1;
+    min-width: 140px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.stat-item span {
+    font-size: 1.5rem;
+    font-weight: bold;
+    display: block;
+    color: #ffd369;
+    margin-bottom: 5px;
+}
+
+.stat-item p {
+    font-size: 0.85rem;
+    margin: 0;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.stat-item:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+/* --- Filters & Projects --- */
+.filters { text-align: center; margin: 30px 0; }
 .filters button {
     padding: 10px 25px; border: 1px solid white; margin: 5px;
     border-radius: 25px; cursor: pointer; background: transparent;
@@ -47,37 +111,39 @@ header { text-align: center; padding: 40px 20px 10px 20px; }
 
 .projects-container {
     display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 20px; padding: 20px; max-width: 1200px; margin: auto;
+    gap: 25px; padding: 20px; max-width: 1200px; margin: auto;
 }
 
 .card {
-    background: rgba(255,255,255,0.1); padding: 25px;
-    border-radius: 15px; border: 1px solid rgba(255,255,255,0.05);
+    background: rgba(255, 255, 255, 0.1); padding: 25px;
+    border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: 0.3s ease;
 }
 
-.card img { width: 100%; border-radius: 10px; height: 200px; object-fit: cover; }
+.card:hover { transform: translateY(-10px); }
+.card img { width: 100%; border-radius: 15px; height: 180px; object-fit: cover; margin-bottom: 15px; }
 
-/* Yellow links fixed */
 .project-link {
-    color: #ffd369 !important;
-    text-decoration: none; font-weight: bold; margin-top: 15px; display: inline-block;
+    color: #ffd369 !important; text-decoration: none;
+    font-weight: bold; margin-top: 15px; display: inline-block;
 }
 
 .metric { color: #ffd369; font-weight: bold; margin: 10px 0; }
 
+/* Modal & Footer */
 .modal {
     display: none; position: fixed; z-index: 1000; left: 0; top: 0;
-    width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(5px);
+    width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px);
 }
 .modal-content {
-    background: #1a1e2b; margin: 15% auto; padding: 30px; border-radius: 20px;
-    width: 320px; border: 1px solid #c33764; text-align: center; position: relative;
+    background: #1a1e2b; margin: 15% auto; padding: 40px; border-radius: 25px;
+    width: 320px; border: 1px solid #ff7eb3; text-align: center; color: white;
 }
-.close { position: absolute; right: 20px; top: 10px; font-size: 28px; cursor: pointer; }
+.close { position: absolute; right: 20px; top: 15px; font-size: 28px; cursor: pointer; }
 .modal-btn {
     display: inline-block; padding: 12px 24px; background: #c33764;
-    color: white; text-decoration: none; border-radius: 10px; margin-top: 15px;
+    color: white; text-decoration: none; border-radius: 12px; margin-top: 15px;
 }
 
-footer { padding: 40px; text-align: center; }
+footer { padding: 50px; text-align: center; }
 footer a { color: white; text-decoration: none; margin: 0 10px; font-weight: bold; }
