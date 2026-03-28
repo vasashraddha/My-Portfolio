@@ -1,33 +1,37 @@
 body {
     margin: 0;
     font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg, #0f172a, #1e293b);
+    background: linear-gradient(135deg, #1d2671, #c33764);
+    background-attachment: fixed;
     color: white;
-    line-height: 1.6;
 }
 
 header { text-align: center; padding: 80px 20px; }
-.filters { text-align: center; margin-bottom: 30px; }
 
+.filters { text-align: center; margin-bottom: 20px; }
 .filters button {
-    margin: 5px; padding: 10px 25px; border: none; border-radius: 30px;
-    background: rgba(255, 255, 255, 0.1); color: white; cursor: pointer; transition: 0.3s;
+    margin: 5px; padding: 10px 20px; border: none; border-radius: 20px;
+    background: #ff7eb3; color: white; cursor: pointer; transition: 0.3s;
 }
-
-.filters button:hover { background: #c33764; }
+.filters button:hover { background: #e05a94; transform: translateY(-2px); }
 
 .projects-container {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 25px; padding: 20px; max-width: 1200px; margin: 0 auto;
 }
 
 .card {
-    background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px);
-    padding: 20px; border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255,255,255,0.1); backdrop-filter: blur(10px);
+    padding: 20px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.1);
     transition: 0.3s;
 }
+.card:hover { transform: translateY(-10px); background: rgba(255,255,255,0.15); }
+.card img { width: 100%; border-radius: 10px; margin-bottom: 15px; }
 
-.card:hover { transform: translateY(-10px); border-color: #c33764; }
-.card img { width: 100%; border-radius: 12px; margin-bottom: 15px; }
-.metric { color: #ffd369; font-weight: bold; margin: 10px 0; display: block; }
+.metric { color: #ffd369; font-weight: bold; display: block; margin: 10px 0; }
 .project-link { color: #ff7eb3; text-decoration: none; font-weight: 600; }
+
+ul li {
+    display: inline-block; background: rgba(255,255,255,0.2);
+    padding: 10px 20px; margin: 5px; border-radius: 10px;
+}
